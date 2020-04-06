@@ -10,22 +10,22 @@ app.set("views", "views")
 
 app.use(express.static("public"))
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
     res.render("home")
 });
 
 
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
     console.log('a user connected');
-    socket.on('chat message', function(msg){
+    socket.on('chat message', function (msg) {
         console.log('message: ' + msg);
         io.emit('chat message', msg);
-      });
-    socket.on('disconnect', function(){
+    });
+    socket.on('disconnect', function () {
         console.log('user disconnected');
-      });
-  });
+    });
+});
 
-http.listen(port, function(){
+http.listen(port, function () {
     console.log(`Application started on port: ${port}`)
 })
