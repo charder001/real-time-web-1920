@@ -27,11 +27,11 @@
   document.querySelector('form').addEventListener("submit", function (e) {
     e.preventDefault(); // prevents page reloading
     socket.emit('chat message', document.querySelector("#m").value);
-    document.getElementById('#m').value = "";
+    document.getElementById('m').value = "";
     // return false;
   });
   socket.on('chat message', function (msg) {
     console.log(msg)
-    document.querySelector('#messages').insertAdjacentHTML("afterbegin", msg);
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${msg}</li>`);
   });
 
