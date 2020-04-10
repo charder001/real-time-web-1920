@@ -2,6 +2,9 @@
 # Required Words
 This is a chat application which requires the users to include a random word in their message before they are allowed to send. The goal of this application is to spice up conversation and create amusing messages :)
 
+![rtw1](https://user-images.githubusercontent.com/43436118/78975459-6a3a7600-7b14-11ea-9b70-9505085d7041.PNG)
+
+
 ## Installation
 1. Open your terminal
 2. Change directory to where you want to clone this repository, to the desktop for example
