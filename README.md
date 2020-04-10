@@ -24,6 +24,17 @@ This is a chat application which requires the users to include a random word in 
 
 `npm run`
 
+## Functionality
+* Send and receive live messages using socket.io
+* Required words must be included in the chat message
+* Error message when users don't include the required word
+
+## To-Do
+* Rooms
+* Users
+* Timestamps
+* Achievements
+
 <!-- Add a link to your live demo in Github Pages 🌐-->
 
 <!-- ☝️ replace this description with a description of your own work -->
