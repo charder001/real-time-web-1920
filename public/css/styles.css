@@ -5,7 +5,22 @@
 }
 
 body {
-  font: 13px Helvetica, Arial;
+  font-family: 'Roboto', sans-serif;
+  background-color: blanchedalmond;
+}
+
+body > h1 {
+  background-color: white;
+  padding: 1em;
+  text-align: center;
+}
+
+body > h1 > span {
+  color: red;
+}
+
+.serverMessage {
+  color: red;
 }
 
 form {
@@ -25,9 +40,10 @@ form input {
 
 form button {
   width: 9%;
-  background: rgb(130, 224, 255);
+  background: green;
   border: none;
   padding: 10px;
+  color: white;
 }
 
 #messages {
