@@ -1,42 +1,28 @@
 # Real-Time Web @cmda-minor-web · 2019-2020
-# Emoji Chat
+# Required Words
+This is a chat application which requires the users to include a random word in their message before they are allowed to send. The goal of this application is to spice up conversation and create amusing messages :)
 
-During this course you will learn how to build a **meaningful** real-time application. You will learn techniques to setup an open connection between the client and the server. This will enable you to send data in real-time both ways, at the same time.
+## Installation
+1. Open your terminal
+2. Change directory to where you want to clone this repository, to the desktop for example
 
-## Goals
-- _Deal with real-time complexity_
-- _Handle real-time client-server interaction_
-- _Handle real-time data management_
-- _Handle multi-user support_
+`cd desktop` 
 
-[Rubric][rubric]
+3. Clone this repository
 
-## Curriculum
+`git clone https://github.com/charder001/real-time-web-1920`
 
-### Week 1 - Hello Server
+4. Change direction into the newly created file
 
-Goal: Build and deploy a unique barebone real-time app  
+`cd real-time-web-1920`
 
-[Exercises](https://github.com/cmda-minor-web/real-time-web-1920/blob/master/course/week-1.md)    
-[Slides](https://docs.google.com/presentation/d/1Q_2EpEnW53G-DiRYtfp1VRYHdLJYJ7bjoLxAWhGbW-0/edit?usp=sharing)  
+5. Install dependencies
 
+`npm install`
 
-### Week 2 - Sharing is caring  
+6. Run application
 
-Goal: Store, manipulate and share data between server-client   
-
-[Exercises](https://github.com/cmda-minor-web/real-time-web-1920/blob/master/course/week-2.md)    
-[Slides](https://docs.google.com/presentation/d/1p_P-rciWJQ2BMgveOYNTcwEJHh1yxB1-HqKZhiD8kkk/edit?usp=sharing)
-
-
-### Week 3 - Let’s take this show on the road 
-
-Goal: Handle data sharing and multi-user support 
-
-[Exercises](https://github.com/cmda-minor-web/real-time-web-1920/blob/master/course/week-3.md)  
-[Slides](https://drive.google.com/open?id=19GE6r1jha3gX-uhQI0NIv09klTT45BihuELqZSEa2_8)
-
-> If you're seeing this message on a forked repo, it means one of our students hasn't changed the description yet 😈
+`npm run`
 
 <!-- Add a link to your live demo in Github Pages 🌐-->
 
