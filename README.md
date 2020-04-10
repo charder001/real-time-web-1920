@@ -4,6 +4,10 @@ This is a chat application which requires the users to include a random word in 
 
 ![rtw1](https://user-images.githubusercontent.com/43436118/78975459-6a3a7600-7b14-11ea-9b70-9505085d7041.PNG)
 
+## Tech
+* Uses an express server
+* Socket.io for web socket
+* Nodemon for live reloading when developing
 
 ## Installation
 1. Open your terminal
