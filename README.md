@@ -42,6 +42,12 @@ This is a chat application which requires the users to include a random word in 
 * Timestamps
 * Achievements
 
+# Assignment 2
+
+## Data model
+![dataflow](https://user-images.githubusercontent.com/43436118/79564960-f4a04e00-80af-11ea-890a-73cb2720974a.png)
+
+
 <!-- Add a link to your live demo in Github Pages 🌐-->
 
 <!-- ☝️ replace this description with a description of your own work -->
