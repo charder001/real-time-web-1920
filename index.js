@@ -3,7 +3,7 @@ const express = require("express")
 const port = process.env.PORT || 3000
 var http = require('http').createServer(app)
 var io = require('socket.io')(http)
-
+let score = 0
 
 app.set("view engine", "ejs")
 app.set("views", "views")
@@ -18,7 +18,6 @@ app.get('/test', function (req, res) {
     res.render("test")
 });
 
-let users = []
 
 io.on('connection', function (socket) {
     console.log('a user connected');
@@ -29,6 +28,9 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });
+    socket.on('Score Up', function(score){
+        console.log("your score = " + score )
+    })
 });
 
 http.listen(port, function () {
