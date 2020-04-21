@@ -4,6 +4,8 @@ const port = process.env.PORT || 3000
 var http = require('http').createServer(app)
 var io = require('socket.io')(http)
 let score = 0
+const words = ["You're gonna need a bigger boat", "nice"]
+let randomWord;
 
 app.set("view engine", "ejs")
 app.set("views", "views")
@@ -21,6 +23,7 @@ app.get('/test', function (req, res) {
 
 io.on('connection', function (socket) {
     console.log('a user connected');
+    io.emit('random word', randomWord)
     socket.on('chat message', function (msg) {
         console.log('message: ' + msg);
         io.emit('chat message', msg);
@@ -32,6 +35,14 @@ io.on('connection', function (socket) {
         console.log("your score = " + score )
     })
 });
+
+// Generate random array index
+randomize(words)
+
+// Pick & show random word
+function randomize(words) {
+  randomWord = words[Math.floor(Math.random() * words.length)];
+}
 
 http.listen(port, function () {
     console.log(`Application started on port: ${port}`)

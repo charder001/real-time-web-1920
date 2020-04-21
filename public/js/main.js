@@ -1,20 +1,7 @@
 // //tutorial source: https://socket.io/get-started/chat/
-const words = ["You're gonna need a bigger boat", "nice"]
-let randomWord;
 var humanInput = document.querySelector("input")
 var score = 0
-
-
-// Generate random array index
-randomize(words)
-
-// Pick & show random word
-function randomize(words) {
-  randomWord = words[Math.floor(Math.random() * words.length)];
-  document.querySelector("#currentWord").innerText = randomWord
-}
-
-
+var challengeString
 var socket = io();
 // document.querySelector('form').addEventListener("submit", function (e) {
 //   e.preventDefault(); // prevents page reloading
@@ -32,7 +19,13 @@ var socket = io();
 //   document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${msg}</li>`);
 // });
 
-var challengeString = randomWord
+socket.on('random word', function (randomWord) {
+  console.log(randomWord)
+  document.querySelector('#currentWord').innerText = randomWord
+  challengeString = randomWord
+});
+
+
 humanInput.addEventListener("input", function (changes) {
     if (changes.target.value == challengeString) {
         score++
