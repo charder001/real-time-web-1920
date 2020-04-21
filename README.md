@@ -42,11 +42,27 @@ This is a chat application which requires the users to include a random word in 
 * Timestamps
 * Achievements
 
-# Assignment 2
+# Assignment 2 - TypeFast
+
+## Concept
+For this project, i will be creating a type-racer esque game where users get put into rooms with other users. In these rooms, a random string will appear containing a quote from a movie quote API. Users will have to match this string as fast as possible. The winner will get points assigned to their account.
+
+## Tech
+This application is built on
+* NodeJS
+* Express
+* MovieQuote API
+* socket.io
 
 ## Data model
 ![dataflow](https://user-images.githubusercontent.com/43436118/79564960-f4a04e00-80af-11ea-890a-73cb2720974a.png)
 
+## To do
+* Rooms
+* Usernames
+* Live string checking
+* Show other user progression
+* Score system
 
 <!-- Add a link to your live demo in Github Pages 🌐-->
 
