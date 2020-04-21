@@ -14,6 +14,11 @@ app.get('/', function (req, res) {
     res.render("home")
 });
 
+app.get('/test', function (req, res) {
+    res.render("test")
+});
+
+let users = []
 
 io.on('connection', function (socket) {
     console.log('a user connected');
