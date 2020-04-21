@@ -1,42 +1,68 @@
 # Real-Time Web @cmda-minor-web · 2019-2020
-# Emoji Chat
+# Required Words
+This is a chat application which requires the users to include a random word in their message before they are allowed to send. The goal of this application is to spice up conversation and create amusing messages :)
 
-During this course you will learn how to build a **meaningful** real-time application. You will learn techniques to setup an open connection between the client and the server. This will enable you to send data in real-time both ways, at the same time.
+![rtw1](https://user-images.githubusercontent.com/43436118/78975459-6a3a7600-7b14-11ea-9b70-9505085d7041.PNG)
 
-## Goals
-- _Deal with real-time complexity_
-- _Handle real-time client-server interaction_
-- _Handle real-time data management_
-- _Handle multi-user support_
+## Tech
+* Uses an express server
+* Socket.io for web socket
+* Nodemon for live reloading when developing
 
-[Rubric][rubric]
+## Installation
+1. Open your terminal
+2. Change directory to where you want to clone this repository, to the desktop for example
 
-## Curriculum
+`cd desktop` 
 
-### Week 1 - Hello Server
+3. Clone this repository
 
-Goal: Build and deploy a unique barebone real-time app  
+`git clone https://github.com/charder001/real-time-web-1920`
 
-[Exercises](https://github.com/cmda-minor-web/real-time-web-1920/blob/master/course/week-1.md)    
-[Slides](https://docs.google.com/presentation/d/1Q_2EpEnW53G-DiRYtfp1VRYHdLJYJ7bjoLxAWhGbW-0/edit?usp=sharing)  
+4. Change direction into the newly created file
 
+`cd real-time-web-1920`
 
-### Week 2 - Sharing is caring  
+5. Install dependencies
 
-Goal: Store, manipulate and share data between server-client   
+`npm install`
 
-[Exercises](https://github.com/cmda-minor-web/real-time-web-1920/blob/master/course/week-2.md)    
-[Slides](https://docs.google.com/presentation/d/1p_P-rciWJQ2BMgveOYNTcwEJHh1yxB1-HqKZhiD8kkk/edit?usp=sharing)
+6. Run application
 
+`npm run`
 
-### Week 3 - Let’s take this show on the road 
+## Functionality
+* Send and receive live messages using socket.io
+* Required words must be included in the chat message
+* Error message when users don't include the required word
 
-Goal: Handle data sharing and multi-user support 
+## To-Do
+* Rooms
+* Users
+* Timestamps
+* Achievements
 
-[Exercises](https://github.com/cmda-minor-web/real-time-web-1920/blob/master/course/week-3.md)  
-[Slides](https://drive.google.com/open?id=19GE6r1jha3gX-uhQI0NIv09klTT45BihuELqZSEa2_8)
+# Assignment 2 - TypeFast
 
-> If you're seeing this message on a forked repo, it means one of our students hasn't changed the description yet 😈
+## Concept
+For this project, i will be creating a type-racer esque game where users get put into rooms with other users. In these rooms, a random string will appear containing a quote from a movie quote API. Users will have to match this string as fast as possible. The winner will get points assigned to their account.
+
+## Tech
+This application is built on
+* NodeJS
+* Express
+* MovieQuote API
+* socket.io
+
+## Data model
+![dataflow](https://user-images.githubusercontent.com/43436118/79564960-f4a04e00-80af-11ea-890a-73cb2720974a.png)
+
+## To do
+* Rooms
+* Usernames
+* Live string checking
+* Show other user progression
+* Score system
 
 <!-- Add a link to your live demo in Github Pages 🌐-->
 
