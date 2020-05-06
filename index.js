@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000
 var http = require('http').createServer(app)
 var io = require('socket.io')(http)
 let score = 0
-const words = ["You're gonna need a bigger boat", "nice"]
+const words = ["You're gonna need a bigger boat", "How nice of you"]
 let randomWord;
 
 app.set("view engine", "ejs")
@@ -28,13 +28,23 @@ io.on('connection', function (socket) {
         console.log('message: ' + msg);
         io.emit('chat message', msg);
     });
-    socket.on('disconnect', function () {
-        console.log('user disconnected');
-    });
     socket.on('Score Up', function(score){
         console.log("your score = " + score )
+        socket.emit("Done", score)
+        io.emit("DoneToAll", score)
     })
+    socket.on('username', function(username) {
+        socket.username = username;
+        io.emit("user Connected", username)
+    });
+    // socket.on('disconnect', function (username) {
+    //     socket.username = username;
+    //     console.log('user disconnected');
+    //     io.emit("user Disconnected", username)
+    // });
 });
+
+
 
 // Generate random array index
 randomize(words)

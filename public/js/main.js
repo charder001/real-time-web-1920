@@ -3,27 +3,46 @@ var humanInput = document.querySelector("input")
 var score = 0
 var challengeString
 var socket = io();
-// document.querySelector('form').addEventListener("submit", function (e) {
-//   e.preventDefault(); // prevents page reloading
-//   let inputText = document.querySelector("#m").value
-//   if (inputText.includes(randomWord)) {
-//     socket.emit('chat message', document.querySelector("#m").value);
-//     document.getElementById('m').value = "";
-//     randomize(words)
-//   } else {
-//     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li class="serverMessage">Your sentence must include ${randomWord}!</li>`);
-//   }
-// });
-// socket.on('chat message', function (msg) {
-//   console.log(msg)
-//   document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${msg}</li>`);
-// });
+var wordsInSentence
+var width = 1;
+var username = prompt('Please tell me your name');
+socket.emit('username', username)
 
 socket.on('random word', function (randomWord) {
-  console.log(randomWord)
-  document.querySelector('#currentWord').innerText = randomWord
-  challengeString = randomWord
+    console.log(randomWord)
+    document.querySelector('#currentWord').innerText = randomWord
+    challengeString = randomWord
+    wordsInSentence = challengeString.split(' ').length
+    console.log(wordsInSentence)
 });
+
+socket.on('user Connected', function (username) {
+    console.log(username)
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} has connected</li>`);
+  });
+
+//   socket.on('user Disconnected', function (username) {
+//     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} has disconnected</li>`);
+//   });
+
+socket.on('disconnect', function () {
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${socket.username} has disconnected</li>`);
+  });
+
+
+
+socket.on('Done', function (score) {
+  console.log(score)
+  document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>You are finished</li>`);
+  document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Your score: ${score}</li>`);
+});
+
+socket.on('DoneToAll', function (score) {
+    console.log(score)
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Rick is finished</li>`);
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>His score: ${score}</li>`);
+  });
+
 
 
 humanInput.addEventListener("input", function (changes) {
@@ -31,8 +50,7 @@ humanInput.addEventListener("input", function (changes) {
         score++
         console.log(score)
         socket.emit('Score Up', score);
-    }
-    else if (changes.target.value && changes.target.value.length !== 0) {
+    } else if (changes.target.value && changes.target.value.length !== 0) {
         var currentHumanInput = changes.target.value;
         for (var index = 0; index < currentHumanInput.length; index++) {
             if (currentHumanInput[index] !==
@@ -49,5 +67,15 @@ humanInput.addEventListener("input", function (changes) {
                 console.log("True")
             }
         }
-    } 
+    }
 })
+
+
+
+
+
+// function move() {
+//     var elem = document.getElementById("myBar");
+//     width++;
+//     elem.style.width = width + "%";
+// }
