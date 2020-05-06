@@ -25,7 +25,7 @@ socket.on('user Connected', function (username) {
 //     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} has disconnected</li>`);
 //   });
 
-socket.on('disconnect', function () {
+socket.on('disconnect', function (username) {
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${socket.username} has disconnected</li>`);
   });
 
@@ -37,9 +37,10 @@ socket.on('Done', function (score) {
   document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Your score: ${score}</li>`);
 });
 
-socket.on('DoneToAll', function (score) {
+socket.on('DoneToAll', function (score, username) {
     console.log(score)
-    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Rick is finished</li>`);
+    console.log(username)
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} is finished</li>`);
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>His score: ${score}</li>`);
   });
 
@@ -49,7 +50,7 @@ humanInput.addEventListener("input", function (changes) {
     if (changes.target.value == challengeString) {
         score++
         console.log(score)
-        socket.emit('Score Up', score);
+        socket.emit('Score Up', score, username);
     } else if (changes.target.value && changes.target.value.length !== 0) {
         var currentHumanInput = changes.target.value;
         for (var index = 0; index < currentHumanInput.length; index++) {

@@ -22,26 +22,26 @@ app.get('/test', function (req, res) {
 
 
 io.on('connection', function (socket) {
-    console.log('a user connected');
     io.emit('random word', randomWord)
     socket.on('chat message', function (msg) {
         console.log('message: ' + msg);
         io.emit('chat message', msg);
     });
-    socket.on('Score Up', function(score){
+    socket.on('Score Up', function(score, username){
         console.log("your score = " + score )
         socket.emit("Done", score)
-        io.emit("DoneToAll", score)
+        socket.broadcast.emit("DoneToAll", score, username)
     })
     socket.on('username', function(username) {
         socket.username = username;
-        io.emit("user Connected", username)
+        console.log(`User ` + socket.username + ' connected');
+        io.emit("user Connected", socket.username)
     });
-    // socket.on('disconnect', function (username) {
-    //     socket.username = username;
-    //     console.log('user disconnected');
-    //     io.emit("user Disconnected", username)
-    // });
+    socket.on('disconnect', function (username) {
+        socket.username = username;
+        console.log(`User ` + socket.username + ' disconnected');
+        io.emit("user Disconnected", socket.username)
+    });
 });
 
 
