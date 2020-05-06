@@ -68,6 +68,23 @@ form button {
   color: red;
 }
 
+#counter {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+#readyButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: white;
+  background-color: green;
+  padding: .9em; 
+}
+
 /* progress bar */
 /* #myProgress {
   width: 100%;

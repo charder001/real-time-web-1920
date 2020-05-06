@@ -97,7 +97,7 @@ readyButton.addEventListener("click", function () {
     console.log(readyButton.innerText)
     if (readyButton.innerText == "ready") {
         socket.emit('ready')
-        readyButton.innerHTML = ``
+        readyButton.style.display = 'none';
     } 
 })
 
