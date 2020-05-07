@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000
 var http = require('http').createServer(app)
 var io = require('socket.io')(http)
 let score = 0
-const words = ["You're gonna need a bigger boat", "How nice of you"]
+const words = ["You're gonna need a bigger boat", "How nice of you", "We need to go deeper"]
 let randomWord;
 var playerCount = 0
 var readyCount = 0
