@@ -30,10 +30,8 @@ app.get('/', function (req, res) {
     for(i=0; i < top10.length; i++){
     words.push(top10[i].text)
     }
-    console.log(words)
   })
   .then(function(){
-      console.log(words)
     res.render("home")
   }
 )});
@@ -47,10 +45,6 @@ io.on('connection', function (socket) {
     playerCount ++
     console.log("there are " + playerCount + " players")
     io.emit('random word', randomWord)
-    socket.on('chat message', function (msg) {
-        console.log('message: ' + msg);
-        io.emit('chat message', msg);
-    });
     socket.on('Score Up', function(score, username){
         console.log("your score = " + score )
         socket.emit("Done", score)
@@ -67,11 +61,11 @@ io.on('connection', function (socket) {
         playerCount --
         console.log("there are " + playerCount + " players")
     });
-    socket.on('newRandomString', function(){
-        randomize(words)
-        io.emit('random word', randomWord)
-        console.log(randomWord)
-    })
+    // socket.on('newRandomString', function(){
+    //     randomize(words)
+    //     io.emit('random word', randomWord)
+    //     console.log(randomWord)
+    // })
     socket.on('ready', function(){
         readyCount ++
         console.log(readyCount, playerCount)
