@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000
 var http = require('http').createServer(app)
 var io = require('socket.io')(http)
 let score = 0
-const words = ["Be brave, be humble, be yourself"]
+const words = ["Be brave, be humble, be yourself", "Genius is one percent inspiration and ninety-nine percent perspiration.", "Difficulties increase the nearer we get to the goal.", "Nothing happens unless first we dream.", "Peace comes from within. Do not seek it without.", "Life is change. Growth is optional. Choose wisely."]
 let randomWord;
 var playerCount = 0
 var readyCount = 0
@@ -21,20 +21,21 @@ app.set("views", "views")
 app.use(express.static("public"))
 
 app.get('/', function (req, res) {
-    fetch("https://type.fit/api/quotes")
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(data) {
-    var top10 = data.sort(function(a, b) { return a.Variable1 < b.Variable1 ? 1 : -1; }).slice(0, 10);
-    for(i=0; i < top10.length; i++){
-    words.push(top10[i].text)
-    }
-  })
-  .then(function(){
+//     fetch("https://type.fit/api/quotes")
+//   .then(function(response) {
+//     return response.json();
+//   })
+//   .then(function(data) {
+//     var top10 = data.sort(function(a, b) { return a.Variable1 < b.Variable1 ? 1 : -1; }).slice(0, 10);
+//     for(i=0; i < top10.length; i++){
+//     words.push(top10[i].text)
+//     }
+//   })
+//   .then(function(){
     res.render("home")
   }
-)});
+)
+// });
 
 app.get('/test', function (req, res) {
     res.render("test")
