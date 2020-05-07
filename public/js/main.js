@@ -32,20 +32,30 @@ socket.on('user Disconnected', function (usernamed) {
 
 socket.on('Done', function (score) {
     console.log(score)
-    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Your score: ${score}</li>`);
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Your score: ${score}</li>`)
+    if (score == 2){
+        socket.emit("gameOver", username, score)
+    };
 });
+
+socket.on("endGame", function(){
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} has won with a score: ${score}</li>`);
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Press ready to start the next round</li>`);
+    score = 0
+    readyButton.style.display = 'block';
+})
 
 socket.on('DoneToAll', function (score, username) {
     console.log(score)
     console.log(username)
-    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>His score: ${score}</li>`);
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} score: ${score}</li>`);
 });
 
-socket.on('startTimer', function () {
-    console.log("game started")
-    startTimer(10, display)
+// socket.on('startTimer', function () {
+//     console.log("game started")
+//     startTimer(10, display)
 
-});
+// });
 
 
 //check input
@@ -76,24 +86,24 @@ humanInput.addEventListener("input", function (changes) {
 })
 
 //countdown timer
-function startTimer(duration, display) {
-    var timer = duration,
-        minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+// function startTimer(duration, display) {
+//     var timer = duration,
+//         minutes, seconds;
+//     setInterval(function () {
+//         minutes = parseInt(timer / 60, 10);
+//         seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+//         minutes = minutes < 10 ? "0" + minutes : minutes;
+//         seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = seconds;
+//         display.textContent = seconds;
 
-        if (--timer < 0) {
-            socket.emit('newRandomString');
-            timer = duration;
-        }
-    }, 1000);
-}
+//         if (--timer < 0) {
+//             socket.emit('newRandomString');
+//             timer = duration;
+//         }
+//     }, 1000);
+// }
 
 var readyButton = document.querySelector("#readyButton")
 readyButton.addEventListener("click", function () {
