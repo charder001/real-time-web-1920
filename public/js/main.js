@@ -6,6 +6,9 @@ var socket = io();
 var wordsInSentence
 var width = 1;
 var username = prompt('Please tell me your name');
+if (username == null){
+    username = "Anonymous"
+}
 var display = document.querySelector('#time');
 socket.emit('username', username)
 
