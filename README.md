@@ -6,7 +6,7 @@
 
 
 ## Concept
-For this project, i will be creating a type-racer esque game where users get put into rooms with other users. In these rooms, a random string will appear containing a quote from a movie quote API. Users will have to match this string as fast as possible. The winner will get points assigned to their account.
+For this project, i will be creating a type-racer esque game where a random string will appear containing a quote from a quote API. Users will have to match this string as fast as possible. The winner will get points assigned to their account.
 
 ## Tech
 This application is built on
