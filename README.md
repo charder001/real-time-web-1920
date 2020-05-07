@@ -2,6 +2,8 @@
 [Assignment 1 in wiki](https://github.com/charder001/real-time-web-1920/wiki)
 
 # Assignment 2 - TypeFast
+![image](https://user-images.githubusercontent.com/43436118/81282890-14e27d80-905c-11ea-9a87-35ede247d006.png)
+
 
 ## Concept
 For this project, i will be creating a type-racer esque game where users get put into rooms with other users. In these rooms, a random string will appear containing a quote from a movie quote API. Users will have to match this string as fast as possible. The winner will get points assigned to their account.
@@ -10,18 +12,105 @@ For this project, i will be creating a type-racer esque game where users get put
 This application is built on
 * NodeJS
 * Express
-* MovieQuote API
+* type.fit API
 * socket.io
+
+## Installation
+1. Open your terminal
+2. Change directory to where you want to clone this repository, to the desktop for example
+
+`cd desktop` 
+
+3. Clone this repository
+
+`git clone https://github.com/charder001/real-time-web-1920`
+
+4. Change direction into the newly created file
+
+`cd real-time-web-1920`
+
+5. Install dependencies
+
+`npm install`
+
+6. Run application
+
+`npm run`
+
+## API
+The TypeFit api is an api which consist of inspiring quotes. There isn't much in the way of documentation, authentication of guidance, but the API does what it's supposed to and is thus really easy to work with.
 
 ## Data model
 ![dataflow](https://user-images.githubusercontent.com/43436118/79564960-f4a04e00-80af-11ea-890a-73cb2720974a.png)
 
+## Real time events
+When a user connects, the player count goes up and the current random string gets sent. When a user disconnects, the player count goes down.
+
+    io.on('connection', function (socket) {
+    playerCount ++
+    console.log("there are " + playerCount + " players")
+    io.emit('random word', randomWord)
+    });
+    
+    
+    socket.on('disconnect', function () {
+        console.log(`User ` + socket.username + ' disconnected');
+        io.emit("user Disconnected", socket.username)
+        playerCount --
+        console.log("there are " + playerCount + " players")
+    });
+    
+  When the page loads, the server also asks for a username which will be used in the chat.
+  
+        socket.on('username', function(username) {
+        socket.username = username;
+        console.log(`User ` + socket.username + ' connected');
+        io.emit("user Connected", socket.username)
+    });
+    
+The server also keeps track of scores, when a user gets a point, the server emits a message to the user AND the other clients seperately.
+
+    socket.on('Score Up', function(score, username){
+        console.log("your score = " + score )
+        socket.emit("Done", score)
+        socket.broadcast.emit("DoneToAll", score, username)
+    })
+    
+When players are connected, the game will only start if everyone is in the ready state.
+
+    socket.on('ready', function(){
+        readyCount ++
+        console.log(readyCount, playerCount)
+        io.emit("readyCountUpdatedPlus", readyCount)
+        if (readyCount == playerCount){
+            playing = true
+            console.log("game starting")
+            setInterval(myTimer, 1000)
+        } 
+    })
+    
+ When the round is over, scores are reset and players have to ready up again.
+ 
+     socket.on("gameOver", function(){
+        console.log("end game")
+        playing = false
+        countdown = 20
+        io.sockets.emit('timer', { countdown: countdown });
+        io.emit("readyCountUpdatedMinus", readyCount)
+        io.emit("endGame")
+        score = 0
+        readyCount = 0
+    })
+
 ## To do
 * Rooms
-* Usernames
-* Live string checking
-* Show other user progression
-* Score system
+* Perpetual score
+* Show other user progression in a more live manner
+* Login
+* Bug fixing
+* More feedback
+
+
 
 <!-- Add a link to your live demo in Github Pages 🌐-->
 
