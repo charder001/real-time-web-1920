@@ -6,17 +6,34 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: blanchedalmond;
+  background-color: #2e2d2d;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  background-color: #f5d21f;
+  width: 100%;
+  position: absolute;
+}
+
+a:visited {
+  color: white;
+}
+
+a:hover {
+  color: #5fcca6
 }
 
 body>h1 {
-  background-color: white;
-  padding: 1em;
+  background-color: #f5d21f;
+  color: #2e2d2d;
+  padding: .3em;
   text-align: center;
 }
 
-body>h1>span {
-  color: red;
+body>h1:last-of-type {
+  padding-bottom: .4em;
 }
 
 #currentWord {
@@ -31,7 +48,7 @@ body>h1>span {
   color: red;
 }
 
-form {
+#typeform {
   background: #000;
   padding: 3px;
   position: fixed;
@@ -39,19 +56,54 @@ form {
   width: 100%;
 }
 
-form input {
+#typeform input {
   border: 0;
   padding: 10px;
-  width: 100%;
+  width: 90%;
   margin-right: .5%;
 }
 
-form button {
+#typeform button {
   width: 9%;
   background: green;
   border: none;
   padding: 10px;
   color: white;
+}
+
+#roomForm {
+  background-color: #e4e4e4;
+  padding: 1em;
+  width: 20em;
+  height: 10em;
+  margin: 10em auto 0 auto;
+  text-align: center;
+}
+
+#roomForm input {
+  width: 10em;
+  padding: 1.2em;
+  background-color: #5fcca6;
+  border: none;
+  margin-top: 1em;
+  font-weight: 600;
+}
+
+#roomForm p {
+  margin-bottom: 1em;
+}
+
+#category {
+  width: 10em;
+  font-size: 1.3em;
+}
+
+#playerOverview {
+  padding: 1em;
+  font-size: 1.3em;
+  font-weight: 800;
+  background-color: #e4e4e4;
+  border-bottom: 3px solid black;
 }
 
 #messages {
@@ -86,21 +138,10 @@ form button {
 
 #readyButton {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  color: white;
-  background-color: green;
-  padding: .9em;
+  width: 8%;
+  bottom: 4px;
+  right: 4px;
+  color: black;
+  background-color:	#5fcca6;
+  padding: .6em;
 }
-
-/* progress bar */
-/* #myProgress {
-  width: 100%;
-  background-color: grey;
-}
-
-#myBar {
-  width: 1%;
-  height: 30px;
-  background-color: green;
-} */

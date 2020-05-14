@@ -47,10 +47,10 @@ app.post('/game', function (req, res) {
             })
             //filter for string length depending on difficulty
             easy = APItext.filter(function (short) {
-                return short.length < 60
+                return short.length < 50
             })
             medium = APItext.filter(function (med) {
-                return med.length < 90
+                return med.length < 80
             })
             hard = APItext.filter(function (long) {
                 return long.length < 120
@@ -70,28 +70,18 @@ app.get('/game', function (req, res) {
             return response.json();
         })
         .then(function () {
-            res.render("game")
+            res.render("rooms")
         })
 });
 
 io.on('connection', function (socket) {
     socket.on("create", function (category) {
         socket.join(category);
-        console.log(category) 
-        // Generate random array
-        if (category == "easy") {
-            randomize(easy)
-        } else if (category == "medium") {
-            randomize(medium)
-        } else if (category == "hard") {
-            randomize(hard)
-        }
-        console.log(randomWord)
         io.to(category).emit("gameStatus", playing)
         playerCount++
         io.to(category).emit("playerCountUpdatedPlus", playerCount)
         console.log("there are " + playerCount + " players")
-        io.to(category).emit('random word', randomWord)
+        // io.to(category).emit('random word', randomWord)
         socket.on('Score Up', function (score, username) {
             console.log("your score = " + score)
             socket.emit("Done", score)
@@ -173,14 +163,6 @@ io.on('connection', function (socket) {
             }
         })
         socket.on("gameOver", function (username) {
-            if (category == "easy") {
-                randomize(easy)
-            } else if (category == "medium") {
-                randomize(medium)
-            } else if (category == "hard") {
-                randomize(hard)
-            }
-            io.to(category).emit('random word', randomWord)
             console.log("end game")
             playing = false
             io.to(category).emit("gameStatus", playing)

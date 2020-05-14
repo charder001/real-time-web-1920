@@ -41,7 +41,7 @@ socket.on('user Disconnected', function (usernamed) {
 socket.on('Done', function (score) {
     console.log(score)
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Your score: ${score}</li>`)
-    if (score == 2) {
+    if (score == 4) {
         socket.emit("gameOver", username, score)
 
     };

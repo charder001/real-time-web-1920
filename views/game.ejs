@@ -8,15 +8,16 @@
 </head>
 
 <body>
+  <a href="/"> < change difficulty</a>
   <h1> Room <span id="roomName"><%= category %></span></h1>
-  <h1><span id="currentWord"></span></h1>
+  <h1><span id="currentWord">Press ready to start the game</span></h1>
   <div id="counter"></div>
   <div id="playerOverview" class="invisible">
     <div><span id="readyCount">0</span> / <span id="playerCount">0</span> players ready</div>
   </div>
   <ul id="messages"></ul>
   <br>
-  <form action="#" id="typeField">
+  <form id="typeform" action="#" id="typeField">
     <input id="m" readonly autofocus autocomplete="off" />
     <!-- <button>Send</button> -->
   </form>
