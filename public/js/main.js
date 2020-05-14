@@ -14,6 +14,7 @@ if (username == null) {
 }
 var display = document.querySelector('#time');
 socket.emit('username', username)
+socket.emit("joinRoom", username)
 
 socket.on('random word', function (randomWord) {
     console.log(randomWord)
@@ -53,6 +54,26 @@ socket.on('DoneToAll', function (score, username) {
     console.log(username)
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} score: ${score}</li>`);
 });
+
+var HTMLreadyCount = document.querySelector("#readyCount")
+socket.on("readyCountUpdatedPlus",function(readyCount){
+    HTMLreadyCount.innerText = readyCount
+}) 
+
+
+socket.on("readyCountUpdatedMinus",function(readyCount){
+    HTMLreadyCount.innerText = readyCount
+}) 
+
+var HTMLplayerCount = document.querySelector("#playerCount")
+socket.on("playerCountUpdatedPlus",function(playerCount){
+    HTMLplayerCount.innerText = playerCount
+}) 
+
+socket.on("playerCountUpdatedMinus",function(playerCount){
+    HTMLplayerCount.innerText = playerCount
+}) 
+
 
 
 
@@ -96,3 +117,19 @@ readyButton.addEventListener("click", function () {
 socket.on('timer', function (data) {
     document.querySelector('#counter').innerHTML = data.countdown;
 });
+
+// socket.on("gameToggle", function(){
+//     document.querySelector("#m").toggleAttribute("readonly")
+//     document.querySelector().classList.toggle("invisible")
+// })
+
+socket.on("gameStatus", function(playing){
+    console.log(playing)
+    if(playing == true) {
+        document.querySelector("#m").readOnly = false
+        document.querySelector("#playerOverview").classList.add("invisible")
+    } else if (playing == false) {
+        document.querySelector("#m").readOnly = true
+        document.querySelector("#playerOverview").classList.remove("invisible")
+    }
+})

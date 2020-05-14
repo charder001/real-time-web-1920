@@ -17,11 +17,14 @@ body > h1 {
 
 body > h1 > span {
   color: red;
-  margin-left: 2em;
 }
 
 #currentWord {
   user-select: none;
+}
+
+.invisible {
+  opacity: 0;
 }
 
 .serverMessage {

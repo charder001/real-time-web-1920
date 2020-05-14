@@ -11,10 +11,14 @@
   <h1> Room <span id="roomName"><%= category %></span></h1>
   <h1><span id="currentWord"></span></h1>
   <div id="counter"></div>
+  <div id="playerOverview" class="invisible">
+  <p id="readyCount">0</p>
+  <p id="playerCount">0</p>
+</div>
   <ul id="messages"></ul>
   <br>
   <form action="#" id="typeField">
-    <input id="m" autofocus autocomplete="off" />
+    <input id="m" readonly autofocus autocomplete="off" />
     <!-- <button>Send</button> -->
   </form>
   <button id="readyButton">ready</button>

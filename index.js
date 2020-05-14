@@ -75,9 +75,11 @@ io.on('connection', function (socket) {
     socket.on("create", function (category) {
         socket.join(category);
         console.log(category)
+        io.to(category).emit("gameStatus", playing)
         playerCount++
+        io.to(category).emit("playerCountUpdatedPlus", playerCount)
         console.log("there are " + playerCount + " players")
-        io.emit('random word', randomWord)
+        io.to(category).emit('random word', randomWord)
         socket.on('Score Up', function (score, username) {
             console.log("your score = " + score)
             socket.emit("Done", score)
@@ -90,29 +92,69 @@ io.on('connection', function (socket) {
         });
         socket.on('disconnect', function () {
             console.log(`User ` + socket.username + ' disconnected');
-            io.emit("user Disconnected", socket.username)
+            io.to(category).emit("user Disconnected", socket.username)
             playerCount--
+            io.to(category).emit("playerCountUpdatedMinus", playerCount)
+            if(playerCount == 0 && playing == true){
+                console.log("end game")
+                playing = false
+                io.to(category).emit("gameStatus", playing)
+                countdown = 20
+                io.sockets.to(category).emit('timer', {
+                    countdown: countdown
+                });
+                io.sockets.to(category).emit("gameToggle")
+                io.to(category).emit("readyCountUpdatedMinus", readyCount)
+                io.to(category).emit("endGame")
+                score = 0
+                readyCount = 0
+            }
             console.log("there are " + playerCount + " players")
         });
         socket.on('ready', function () {
             readyCount++
             console.log(readyCount, playerCount)
-            io.emit("readyCountUpdatedPlus", readyCount)
+            io.to(category).emit("readyCountUpdatedPlus", readyCount)
             if (readyCount == playerCount) {
                 playing = true
+                io.to(category).emit("gameStatus", playing)
+                io.sockets.to(category).emit("gameToggle")
                 console.log("game starting")
-                setInterval(myTimer, 1000)
+                var timer = setInterval(myTimer, 1000)
+                function myTimer() {
+                    if (playing == false) {
+                        countdown = 20
+                       clearInterval(timer)
+                        io.sockets.to(category).emit('timer', {
+                            countdown: countdown
+                        });
+                    } else if (playing == true) {
+                        countdown--;
+                        io.sockets.emit('timer', {
+                            countdown: countdown
+                        });
+                        if (countdown == 0) {
+                            
+                            randomize(words)
+                            io.to(category).emit('random word', randomWord)
+                            console.log(randomWord)
+                            countdown = 20;
+                        }
+                    }
+                };
             }
         })
         socket.on("gameOver", function () {
             console.log("end game")
             playing = false
+            io.to(category).emit("gameStatus", playing)
             countdown = 20
-            io.sockets.emit('timer', {
+            io.sockets.to(category).emit('timer', {
                 countdown: countdown
             });
-            io.emit("readyCountUpdatedMinus", readyCount)
-            io.emit("endGame")
+            io.sockets.to(category).emit("gameToggle")
+            io.to(category).emit("readyCountUpdatedMinus", readyCount)
+            io.to(category).emit("endGame")
             score = 0
             readyCount = 0
         })
@@ -121,25 +163,7 @@ io.on('connection', function (socket) {
 
 });
 
-function myTimer() {
-    if (playing == false) {
-        countdown = 20
-        io.sockets.emit('timer', {
-            countdown: countdown
-        });
-    } else if (playing == true) {
-        countdown--;
-        io.sockets.emit('timer', {
-            countdown: countdown
-        });
-        if (countdown == 0) {
-            randomize(words)
-            io.emit('random word', randomWord)
-            console.log(randomWord)
-            countdown = 20;
-        }
-    }
-};
+
 
 // Generate random array index
 randomize(words)
