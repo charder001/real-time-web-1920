@@ -20,6 +20,10 @@ body > h1 > span {
   margin-left: 2em;
 }
 
+#currentWord {
+  user-select: none;
+}
+
 .serverMessage {
   color: red;
 }

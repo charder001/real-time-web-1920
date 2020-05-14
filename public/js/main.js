@@ -5,8 +5,11 @@ var challengeString
 var socket = io();
 var wordsInSentence
 var width = 1;
+roomName = document.getElementById("roomName").innerText;
+console.log(roomName)
+socket.emit('create', roomName)
 var username = prompt('Please tell me your name');
-if (username == null){
+if (username == null) {
     username = "Anonymous"
 }
 var display = document.querySelector('#time');
@@ -33,12 +36,12 @@ socket.on('user Disconnected', function (usernamed) {
 socket.on('Done', function (score) {
     console.log(score)
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Your score: ${score}</li>`)
-    if (score == 2){
+    if (score == 2) {
         socket.emit("gameOver", username, score)
     };
 });
 
-socket.on("endGame", function(){
+socket.on("endGame", function () {
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} has won with a score: ${score}</li>`);
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Press ready to start the next round</li>`);
     score = 0
@@ -50,6 +53,8 @@ socket.on('DoneToAll', function (score, username) {
     console.log(username)
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} score: ${score}</li>`);
 });
+
+
 
 //check input
 humanInput.addEventListener("input", function (changes) {
@@ -85,10 +90,9 @@ readyButton.addEventListener("click", function () {
     if (readyButton.innerText == "ready") {
         socket.emit('ready')
         readyButton.style.display = 'none';
-    } 
+    }
 })
 
 socket.on('timer', function (data) {
     document.querySelector('#counter').innerHTML = data.countdown;
 });
-

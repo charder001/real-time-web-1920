@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <title>Socket.IO chat</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<h1>Rooms</h1>
+<form action="game" method="POST">
+<select id="category" name="category">
+    <option value="easy">easy</option>
+    <option value="medium">medium</option>
+    <option value="hard">hard</option>
+    <input type="submit" value="Join room">
+</select>
+</form>
+  <script src="/socket.io/socket.io.js"></script>
+</body>
+
+</html>
