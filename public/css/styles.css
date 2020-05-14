@@ -29,7 +29,11 @@ body>h1 {
   background-color: #f5d21f;
   color: #2e2d2d;
   padding: .3em;
+
   text-align: center;
+}
+body>h1:first-of-type {
+  padding-top: 1em;
 }
 
 body>h1:last-of-type {
@@ -41,7 +45,7 @@ body>h1:last-of-type {
 }
 
 .invisible {
-  opacity: 0;
+  display: none
 }
 
 .serverMessage {
@@ -106,6 +110,14 @@ body>h1:last-of-type {
   border-bottom: 3px solid black;
 }
 
+#placeholder {
+  padding: 1em;
+  font-size: 1.3em;
+  font-weight: 800;
+  background-color: #e4e4e4;
+  border-bottom: 3px solid black;
+}
+
 #messages {
   list-style-type: none;
   margin: 0;
@@ -113,11 +125,13 @@ body>h1:last-of-type {
 }
 
 #messages li {
+  color: white;
   padding: 5px 10px;
 }
 
 #messages li:nth-child(odd) {
   background: #eee;
+  color: black;
 }
 
 .correct {

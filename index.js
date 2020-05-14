@@ -81,7 +81,10 @@ io.on('connection', function (socket) {
         playerCount++
         io.to(category).emit("playerCountUpdatedPlus", playerCount)
         console.log("there are " + playerCount + " players")
-        // io.to(category).emit('random word', randomWord)
+        //send the random string to a user if they join in progress
+        if (playing == true) {
+            socket.emit('random word', randomWord)
+        }
         socket.on('Score Up', function (score, username) {
             console.log("your score = " + score)
             socket.emit("Done", score)

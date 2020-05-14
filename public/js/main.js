@@ -123,19 +123,16 @@ socket.on('timer', function (data) {
     document.querySelector('#counter').innerHTML = data.countdown;
 });
 
-// socket.on("gameToggle", function(){
-//     document.querySelector("#m").toggleAttribute("readonly")
-//     document.querySelector().classList.toggle("invisible")
-// })
-
 socket.on("gameStatus", function (playing) {
     console.log(playing)
     if (playing == true) {
         document.querySelector("#m").readOnly = false
         document.querySelector("#playerOverview").classList.add("invisible")
+        document.querySelector("#placeholder").classList.remove("invisible")
     } else if (playing == false) {
         document.querySelector("#m").readOnly = true
         document.querySelector("#playerOverview").classList.remove("invisible")
+        document.querySelector("#placeholder").classList.add("invisible")
         score = 0
     }
 })
