@@ -29,6 +29,10 @@ socket.on('user Connected', function (username) {
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} has connected</li>`);
 });
 
+socket.on('you Connected', function () {
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>You connected</li>`);
+});
+
 socket.on('user Disconnected', function (usernamed) {
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${usernamed} has disconnected</li>`);
 });
@@ -39,11 +43,12 @@ socket.on('Done', function (score) {
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Your score: ${score}</li>`)
     if (score == 2) {
         socket.emit("gameOver", username, score)
+
     };
 });
 
-socket.on("endGame", function () {
-    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} has won with a score: ${score}</li>`);
+socket.on("endGame", function (username, score) {
+    document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} has won!</li>`);
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>Press ready to start the next round</li>`);
     score = 0
     readyButton.style.display = 'block';
@@ -131,5 +136,6 @@ socket.on("gameStatus", function(playing){
     } else if (playing == false) {
         document.querySelector("#m").readOnly = true
         document.querySelector("#playerOverview").classList.remove("invisible")
+        score = 0
     }
 })

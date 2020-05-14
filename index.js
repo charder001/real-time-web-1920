@@ -83,12 +83,13 @@ io.on('connection', function (socket) {
         socket.on('Score Up', function (score, username) {
             console.log("your score = " + score)
             socket.emit("Done", score)
-            io.to(category).emit("DoneToAll", score, username)
+            socket.to(category).emit("DoneToAll", score, username)
         })
         socket.on('joinRoom', function (username) {
             socket.username = username;
             console.log(`User ` + socket.username + ' connected');
-            io.to(category).emit("user Connected", socket.username)
+            socket.to(category).emit("user Connected", socket.username)
+            socket.emit("you Connected")
         });
         socket.on('disconnect', function () {
             console.log(`User ` + socket.username + ' disconnected');
@@ -116,6 +117,8 @@ io.on('connection', function (socket) {
             console.log(readyCount, playerCount)
             io.to(category).emit("readyCountUpdatedPlus", readyCount)
             if (readyCount == playerCount) {
+                score = 0
+                randomize(words)
                 playing = true
                 io.to(category).emit("gameStatus", playing)
                 io.sockets.to(category).emit("gameToggle")
@@ -144,7 +147,7 @@ io.on('connection', function (socket) {
                 };
             }
         })
-        socket.on("gameOver", function () {
+        socket.on("gameOver", function (username) {
             console.log("end game")
             playing = false
             io.to(category).emit("gameStatus", playing)
@@ -153,10 +156,10 @@ io.on('connection', function (socket) {
                 countdown: countdown
             });
             io.sockets.to(category).emit("gameToggle")
-            io.to(category).emit("readyCountUpdatedMinus", readyCount)
-            io.to(category).emit("endGame")
+            io.to(category).emit("endGame", username, score)
             score = 0
             readyCount = 0
+            io.to(category).emit("readyCountUpdatedMinus", readyCount)
         })
     })
 
