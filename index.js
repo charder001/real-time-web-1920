@@ -40,20 +40,21 @@ app.post('/game', function (req, res) {
             var top30 = data.sort(function (a, b) {
                 return a.Variable1 < b.Variable1 ? 1 : -1;
             }).slice(0, 30);
-            // for (i = 0; i < top30.length; i++) {
-            //     words.push(top30[i].text)
-            // }
             var APItext = top30.map(function (top30) {
                 return top30.text
             })
-            // console.log(APItext)
-            // function easy(APItext){
-            //     return APItext.length < 5
-            // }
             easy = APItext.filter(function (short) {
                 return short.length < 60
             })
+            medium = APItext.filter(function (med) {
+                return med.length < 90
+            })
+            hard = APItext.filter(function (long) {
+                return long.length < 120
+            })
             console.log(easy)
+            console.log(medium)
+            console.log(hard)
         })
         .then(function () {
             res.render('game.ejs', {
@@ -84,6 +85,10 @@ io.on('connection', function (socket) {
         console.log(category) // Generate random array index
         if (category == "easy") {
             randomize(easy)
+        } else if (category == "medium"){
+            randomize(medium)
+        } else if (category == "hard"){
+            randomize(hard)
         }
 
         console.log(randomWord)
@@ -131,6 +136,10 @@ io.on('connection', function (socket) {
                 score = 0
                 if (category == "easy") {
                     randomize(easy)
+                } else if (category == "medium"){
+                    randomize(medium)
+                } else if (category == "hard"){
+                    randomize(hard)
                 }
                 io.to(category).emit('random word', randomWord)
                 playing = true
@@ -155,6 +164,10 @@ io.on('connection', function (socket) {
 
                             if (category == "easy") {
                                 randomize(easy)
+                            } else if (category == "medium"){
+                                randomize(medium)
+                            } else if (category == "hard"){
+                                randomize(hard)
                             }
                             io.to(category).emit('random word', randomWord)
                             console.log(randomWord)
@@ -167,6 +180,10 @@ io.on('connection', function (socket) {
         socket.on("gameOver", function (username) {
             if (category == "easy") {
                 randomize(easy)
+            } else if (category == "medium"){
+                randomize(medium)
+            } else if (category == "hard"){
+                randomize(hard)
             }
             io.to(category).emit('random word', randomWord)
             console.log("end game")
