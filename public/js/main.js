@@ -61,23 +61,23 @@ socket.on('DoneToAll', function (score, username) {
 });
 
 var HTMLreadyCount = document.querySelector("#readyCount")
-socket.on("readyCountUpdatedPlus",function(readyCount){
+socket.on("readyCountUpdatedPlus", function (readyCount) {
     HTMLreadyCount.innerText = readyCount
-}) 
+})
 
 
-socket.on("readyCountUpdatedMinus",function(readyCount){
+socket.on("readyCountUpdatedMinus", function (readyCount) {
     HTMLreadyCount.innerText = readyCount
-}) 
+})
 
 var HTMLplayerCount = document.querySelector("#playerCount")
-socket.on("playerCountUpdatedPlus",function(playerCount){
+socket.on("playerCountUpdatedPlus", function (playerCount) {
     HTMLplayerCount.innerText = playerCount
-}) 
+})
 
-socket.on("playerCountUpdatedMinus",function(playerCount){
+socket.on("playerCountUpdatedMinus", function (playerCount) {
     HTMLplayerCount.innerText = playerCount
-}) 
+})
 
 
 
@@ -128,9 +128,9 @@ socket.on('timer', function (data) {
 //     document.querySelector().classList.toggle("invisible")
 // })
 
-socket.on("gameStatus", function(playing){
+socket.on("gameStatus", function (playing) {
     console.log(playing)
-    if(playing == true) {
+    if (playing == true) {
         document.querySelector("#m").readOnly = false
         document.querySelector("#playerOverview").classList.add("invisible")
     } else if (playing == false) {

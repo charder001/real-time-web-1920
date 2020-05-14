@@ -9,13 +9,13 @@ body {
   background-color: blanchedalmond;
 }
 
-body > h1 {
+body>h1 {
   background-color: white;
   padding: 1em;
   text-align: center;
 }
 
-body > h1 > span {
+body>h1>span {
   color: red;
 }
 
@@ -90,7 +90,7 @@ form button {
   right: 0;
   color: white;
   background-color: green;
-  padding: .9em; 
+  padding: .9em;
 }
 
 /* progress bar */

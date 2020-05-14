@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 var http = require('http').createServer(app)
 var io = require('socket.io')(http)
 let score = 0
-// const words = ["Be brave, be humble, be yourself"]
 let randomWord;
 var playerCount = 0
 var readyCount = 0
@@ -18,31 +17,35 @@ var easy
 var medium
 var hard
 
-
 app.set("view engine", "ejs")
 app.set("views", "views")
 app.use(express.static("public"))
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+//get home
 app.get('/', function (req, res) {
     res.render("rooms")
 })
 
+//post from category form to game room
 app.post('/game', function (req, res) {
+    //fetch quotes from typeFit API
     fetch("https://type.fit/api/quotes")
         .then(function (response) {
             return response.json();
         })
+        //get first 30 results
         .then(function (data) {
             var top30 = data.sort(function (a, b) {
                 return a.Variable1 < b.Variable1 ? 1 : -1;
             }).slice(0, 30);
+            //reduce JSON to text
             var APItext = top30.map(function (top30) {
                 return top30.text
             })
+            //filter for string length depending on difficulty
             easy = APItext.filter(function (short) {
                 return short.length < 60
             })
@@ -52,9 +55,6 @@ app.post('/game', function (req, res) {
             hard = APItext.filter(function (long) {
                 return long.length < 120
             })
-            console.log(easy)
-            console.log(medium)
-            console.log(hard)
         })
         .then(function () {
             res.render('game.ejs', {
@@ -74,23 +74,18 @@ app.get('/game', function (req, res) {
         })
 });
 
-app.get('/test', function (req, res) {
-    res.render("test")
-});
-
-
 io.on('connection', function (socket) {
     socket.on("create", function (category) {
         socket.join(category);
-        console.log(category) // Generate random array index
+        console.log(category) 
+        // Generate random array
         if (category == "easy") {
             randomize(easy)
-        } else if (category == "medium"){
+        } else if (category == "medium") {
             randomize(medium)
-        } else if (category == "hard"){
+        } else if (category == "hard") {
             randomize(hard)
         }
-
         console.log(randomWord)
         io.to(category).emit("gameStatus", playing)
         playerCount++
@@ -136,9 +131,9 @@ io.on('connection', function (socket) {
                 score = 0
                 if (category == "easy") {
                     randomize(easy)
-                } else if (category == "medium"){
+                } else if (category == "medium") {
                     randomize(medium)
-                } else if (category == "hard"){
+                } else if (category == "hard") {
                     randomize(hard)
                 }
                 io.to(category).emit('random word', randomWord)
@@ -164,9 +159,9 @@ io.on('connection', function (socket) {
 
                             if (category == "easy") {
                                 randomize(easy)
-                            } else if (category == "medium"){
+                            } else if (category == "medium") {
                                 randomize(medium)
-                            } else if (category == "hard"){
+                            } else if (category == "hard") {
                                 randomize(hard)
                             }
                             io.to(category).emit('random word', randomWord)
@@ -180,9 +175,9 @@ io.on('connection', function (socket) {
         socket.on("gameOver", function (username) {
             if (category == "easy") {
                 randomize(easy)
-            } else if (category == "medium"){
+            } else if (category == "medium") {
                 randomize(medium)
-            } else if (category == "hard"){
+            } else if (category == "hard") {
                 randomize(hard)
             }
             io.to(category).emit('random word', randomWord)
