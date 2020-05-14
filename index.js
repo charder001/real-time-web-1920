@@ -7,12 +7,16 @@ const bodyParser = require('body-parser');
 var http = require('http').createServer(app)
 var io = require('socket.io')(http)
 let score = 0
-const words = ["Be brave, be humble, be yourself"]
+// const words = ["Be brave, be humble, be yourself"]
 let randomWord;
 var playerCount = 0
 var readyCount = 0
 var countdown = 20;
 var playing = false;
+var difficulty
+var easy
+var medium
+var hard
 
 
 app.set("view engine", "ejs")
@@ -33,12 +37,23 @@ app.post('/game', function (req, res) {
             return response.json();
         })
         .then(function (data) {
-            var top10 = data.sort(function (a, b) {
+            var top30 = data.sort(function (a, b) {
                 return a.Variable1 < b.Variable1 ? 1 : -1;
-            }).slice(0, 10);
-            for (i = 0; i < top10.length; i++) {
-                words.push(top10[i].text)
-            }
+            }).slice(0, 30);
+            // for (i = 0; i < top30.length; i++) {
+            //     words.push(top30[i].text)
+            // }
+            var APItext = top30.map(function (top30) {
+                return top30.text
+            })
+            // console.log(APItext)
+            // function easy(APItext){
+            //     return APItext.length < 5
+            // }
+            easy = APItext.filter(function (short) {
+                return short.length < 60
+            })
+            console.log(easy)
         })
         .then(function () {
             res.render('game.ejs', {
@@ -53,14 +68,6 @@ app.get('/game', function (req, res) {
         .then(function (response) {
             return response.json();
         })
-        .then(function (data) {
-            var top10 = data.sort(function (a, b) {
-                return a.Variable1 < b.Variable1 ? 1 : -1;
-            }).slice(0, 10);
-            for (i = 0; i < top10.length; i++) {
-                words.push(top10[i].text)
-            }
-        })
         .then(function () {
             res.render("game")
         })
@@ -74,7 +81,12 @@ app.get('/test', function (req, res) {
 io.on('connection', function (socket) {
     socket.on("create", function (category) {
         socket.join(category);
-        console.log(category)
+        console.log(category) // Generate random array index
+        if (category == "easy") {
+            randomize(easy)
+        }
+
+        console.log(randomWord)
         io.to(category).emit("gameStatus", playing)
         playerCount++
         io.to(category).emit("playerCountUpdatedPlus", playerCount)
@@ -96,7 +108,7 @@ io.on('connection', function (socket) {
             io.to(category).emit("user Disconnected", socket.username)
             playerCount--
             io.to(category).emit("playerCountUpdatedMinus", playerCount)
-            if(playerCount == 0 && playing == true){
+            if (playerCount == 0 && playing == true) {
                 console.log("end game")
                 playing = false
                 io.to(category).emit("gameStatus", playing)
@@ -107,7 +119,6 @@ io.on('connection', function (socket) {
                 io.sockets.to(category).emit("gameToggle")
                 io.to(category).emit("readyCountUpdatedMinus", readyCount)
                 io.to(category).emit("endGame")
-                score = 0
                 readyCount = 0
             }
             console.log("there are " + playerCount + " players")
@@ -118,16 +129,20 @@ io.on('connection', function (socket) {
             io.to(category).emit("readyCountUpdatedPlus", readyCount)
             if (readyCount == playerCount) {
                 score = 0
-                randomize(words)
+                if (category == "easy") {
+                    randomize(easy)
+                }
+                io.to(category).emit('random word', randomWord)
                 playing = true
                 io.to(category).emit("gameStatus", playing)
                 io.sockets.to(category).emit("gameToggle")
                 console.log("game starting")
                 var timer = setInterval(myTimer, 1000)
+
                 function myTimer() {
                     if (playing == false) {
                         countdown = 20
-                       clearInterval(timer)
+                        clearInterval(timer)
                         io.sockets.to(category).emit('timer', {
                             countdown: countdown
                         });
@@ -137,8 +152,10 @@ io.on('connection', function (socket) {
                             countdown: countdown
                         });
                         if (countdown == 0) {
-                            
-                            randomize(words)
+
+                            if (category == "easy") {
+                                randomize(easy)
+                            }
                             io.to(category).emit('random word', randomWord)
                             console.log(randomWord)
                             countdown = 20;
@@ -148,6 +165,10 @@ io.on('connection', function (socket) {
             }
         })
         socket.on("gameOver", function (username) {
+            if (category == "easy") {
+                randomize(easy)
+            }
+            io.to(category).emit('random word', randomWord)
             console.log("end game")
             playing = false
             io.to(category).emit("gameStatus", playing)
@@ -168,12 +189,9 @@ io.on('connection', function (socket) {
 
 
 
-// Generate random array index
-randomize(words)
-
 // Pick & show random word
-function randomize(words) {
-    randomWord = words[Math.floor(Math.random() * words.length)];
+function randomize(difficulty) {
+    randomWord = difficulty[Math.floor(Math.random() * difficulty.length)];
 }
 
 http.listen(port, function () {
