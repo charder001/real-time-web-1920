@@ -51,13 +51,6 @@ socket.on('DoneToAll', function (score, username) {
     document.querySelector('#messages').insertAdjacentHTML("beforeend", `<li>${username} score: ${score}</li>`);
 });
 
-// socket.on('startTimer', function () {
-//     console.log("game started")
-//     startTimer(10, display)
-
-// });
-
-
 //check input
 humanInput.addEventListener("input", function (changes) {
     if (changes.target.value == challengeString) {
@@ -85,25 +78,6 @@ humanInput.addEventListener("input", function (changes) {
     }
 })
 
-//countdown timer
-// function startTimer(duration, display) {
-//     var timer = duration,
-//         minutes, seconds;
-//     setInterval(function () {
-//         minutes = parseInt(timer / 60, 10);
-//         seconds = parseInt(timer % 60, 10);
-
-//         minutes = minutes < 10 ? "0" + minutes : minutes;
-//         seconds = seconds < 10 ? "0" + seconds : seconds;
-
-//         display.textContent = seconds;
-
-//         if (--timer < 0) {
-//             socket.emit('newRandomString');
-//             timer = duration;
-//         }
-//     }, 1000);
-// }
 
 var readyButton = document.querySelector("#readyButton")
 readyButton.addEventListener("click", function () {
