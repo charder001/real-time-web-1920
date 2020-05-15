@@ -41,7 +41,8 @@ This application is built on
 The TypeFit api is an api which consist of inspiring quotes. There isn't much in the way of documentation, authentication of guidance, but the API does what it's supposed to and is thus really easy to work with.
 
 ## Data model
-![dataflow](https://user-images.githubusercontent.com/43436118/79564960-f4a04e00-80af-11ea-890a-73cb2720974a.png)
+![datamodel](https://user-images.githubusercontent.com/43436118/82027049-f4d24000-9693-11ea-9998-15199d3b0dc9.png)
+
 
 ## Real time events
 When a user connects, the player count goes up and the current random string gets sent. When a user disconnects, the player count goes down.
