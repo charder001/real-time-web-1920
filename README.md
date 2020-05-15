@@ -2,7 +2,7 @@
 [Assignment 1 in wiki](https://github.com/charder001/real-time-web-1920/wiki)
 
 # Assignment 2 - TypeFast
-![image](https://user-images.githubusercontent.com/43436118/81282890-14e27d80-905c-11ea-9a87-35ede247d006.png)
+![rtw2](https://user-images.githubusercontent.com/43436118/82026127-98baec00-9692-11ea-8314-847b3704aed4.PNG)
 
 
 ## Concept
