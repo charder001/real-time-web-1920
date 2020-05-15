@@ -44,6 +44,8 @@ The TypeFit api is an api which consist of inspiring quotes. There isn't much in
 
 *Data* returned by the API comes in the form of JSON containing a text string with the quote and an author string containing the author of the quote.
 
+      https://type.fit/api/quotes
+
       [
         {
           "text": "Genius is one percent inspiration and ninety-nine percent perspiration.",
@@ -54,6 +56,8 @@ The TypeFit api is an api which consist of inspiring quotes. There isn't much in
           "author": "Yogi Berra"
         },
       ]
+      
+This data gets sorted to only include the first 30 results, mapped to return only the text string and filtered based on what difficulty is selected.
 
 ## Data life cycle
 ![datamodel](https://user-images.githubusercontent.com/43436118/82027049-f4d24000-9693-11ea-9998-15199d3b0dc9.png)
