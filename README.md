@@ -48,10 +48,12 @@ The TypeFit api is an api which consist of inspiring quotes. There isn't much in
 | ------------- |:-------------:| -----:|
 | connection   |  socket connects | save category to server, add player to playerCount |
 | disconnect      |   socket disconnects    | playerCount decreases and sends message to client |
+| playerCount | player connects/disconnects  | updates playerCount and sends message to client  |
 | joinRoom | player joins a room    | send message to client  |
 | ready | player presses ready button    | adds to readyCount in server |
 | gamestatus | players are ready/game ends    | update game status to playing/not playing  |
 | random word | game/new round starts  | generate new random string from fetch data  |
+| done | player is done typing a string  | player score is increased by 1, message is sent to clients  |
 | gameOver | round ends when someone wins  | stop timer, update gameStatus and generate new string  |
 
 
