@@ -40,6 +40,21 @@ This application is built on
 ## API
 The TypeFit api is an api which consist of inspiring quotes. There isn't much in the way of documentation, authentication of guidance, but the API does what it's supposed to and is thus really easy to work with.
 
+*Limitations* are that you use the API in a non-abusive manner, no spamming requests or commercial use without asking for permission.
+
+*Data* returned by the API comes in the form of JSON containing a text string with the quote and an author string containing the author of the quote.
+
+      [
+        {
+          "text": "Genius is one percent inspiration and ninety-nine percent perspiration.",
+          "author": "Thomas Edison"
+        },
+        {
+          "text": "You can observe a lot just by watching.",
+          "author": "Yogi Berra"
+        },
+      ]
+
 ## Data life cycle
 ![datamodel](https://user-images.githubusercontent.com/43436118/82027049-f4d24000-9693-11ea-9998-15199d3b0dc9.png)
 
