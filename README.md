@@ -40,76 +40,25 @@ This application is built on
 ## API
 The TypeFit api is an api which consist of inspiring quotes. There isn't much in the way of documentation, authentication of guidance, but the API does what it's supposed to and is thus really easy to work with.
 
-## Data model
+## Data life cycle
 ![datamodel](https://user-images.githubusercontent.com/43436118/82027049-f4d24000-9693-11ea-9998-15199d3b0dc9.png)
 
-
 ## Real time events
-When a user connects, the player count goes up and the current random string gets sent. When a user disconnects, the player count goes down.
+| Event        | Trigger           | Usage  |
+| ------------- |:-------------:| -----:|
+| connection   |  socket connects | save category to server, add player to playerCount |
+| disconnect      |   socket disconnects    | playerCount decreases and sends message to client |
+| joinRoom | player joins a room    | send message to client  |
+| ready | player presses ready button    | adds to readyCount in server |
+| gamestatus | players are ready/game ends    | update game status to playing/not playing  |
+| random word | game/new round starts  | generate new random string from fetch data  |
+| gameOver | round ends when someone wins  | stop timer, update gameStatus and generate new string  |
 
-    io.on('connection', function (socket) {
-    playerCount ++
-    console.log("there are " + playerCount + " players")
-    io.emit('random word', randomWord)
-    });
-    
-    
-    socket.on('disconnect', function () {
-        console.log(`User ` + socket.username + ' disconnected');
-        io.emit("user Disconnected", socket.username)
-        playerCount --
-        console.log("there are " + playerCount + " players")
-    });
-    
-  When the page loads, the server also asks for a username which will be used in the chat.
-  
-        socket.on('username', function(username) {
-        socket.username = username;
-        console.log(`User ` + socket.username + ' connected');
-        io.emit("user Connected", socket.username)
-    });
-    
-The server also keeps track of scores, when a user gets a point, the server emits a message to the user AND the other clients seperately.
-
-    socket.on('Score Up', function(score, username){
-        console.log("your score = " + score )
-        socket.emit("Done", score)
-        socket.broadcast.emit("DoneToAll", score, username)
-    })
-    
-When players are connected, the game will only start if everyone is in the ready state.
-
-    socket.on('ready', function(){
-        readyCount ++
-        console.log(readyCount, playerCount)
-        io.emit("readyCountUpdatedPlus", readyCount)
-        if (readyCount == playerCount){
-            playing = true
-            console.log("game starting")
-            setInterval(myTimer, 1000)
-        } 
-    })
-    
- When the round is over, scores are reset and players have to ready up again.
- 
-     socket.on("gameOver", function(){
-        console.log("end game")
-        playing = false
-        countdown = 20
-        io.sockets.emit('timer', { countdown: countdown });
-        io.emit("readyCountUpdatedMinus", readyCount)
-        io.emit("endGame")
-        score = 0
-        readyCount = 0
-    })
 
 ## To do
-* Rooms
 * Perpetual score
 * Show other user progression in a more live manner
-* Login
 * Bug fixing
-* More feedback
 
 
 
